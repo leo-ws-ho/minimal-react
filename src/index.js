@@ -31,7 +31,9 @@ class Button extends React.Component {
     // *** never set the state inside render(); ***
     return (
       <button 
-        onClick={ () => this.handleClick() }
+        onClick={ () => this.handleClick() } 
+        // arrow function preserves the 'this' binding.  
+        // in this code, 'this' refers to this 'Button' Component.
         style={ currentStyle }
       >Click!</button>);
   }
