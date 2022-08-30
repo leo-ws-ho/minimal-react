@@ -1,17 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+class Button extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { numClicks: 0 };
+  }
+
+  handleClick() {
+    console.log('clicked!');
+    // set the state so that the render will display correct color.
+    let n = this.state.numClicks;
+
+    n = (n + 1) % 3;
+    this.setState( {numClicks: n} );
+  }
+
+  render() {
+    let currentStyle = {};
+
+    if (this.state.numClicks === 0)
+      currentStyle.backgroundColor = 'green';
+    else if (this.state.numClicks === 1)
+      currentStyle.backgroundColor = 'red';
+    else if (this.state.numClicks === 2) {
+      currentStyle.backgroundColor = 'yellow';
+    }
+
+    // set the background color according to state.
+    // *** never set the state inside render(); ***
+    return (
+      <button 
+        onClick={ () => this.handleClick() }
+        style={ currentStyle }
+      >Click!</button>);
+  }
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Button></Button>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
